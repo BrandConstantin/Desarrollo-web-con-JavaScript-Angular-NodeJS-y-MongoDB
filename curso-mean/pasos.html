@@ -1,0 +1,130 @@
+<!Doctype html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+	</head>
+	<body>
+		<h1>Pasos a realizar</h1>
+
+		<ol>
+			<li>Descargar NodeJS</li>
+			<ol>Comprobar que funciona
+				<li>npm -v</li>
+				<li>node -v</li>
+			</ol>
+			<li>Actualizar el npm en el pc</li>
+				<ol>
+					<li>npm install -g npm</li>
+				</ol>
+			<li>Instalar MongoDB</li>
+			<li>Crear en directorio C una carpeta 'data' y dentro otra carpeta que se llame 'db'</li>
+			<li>Entrar en MongoDB, Server, bin y ejecutar</li>
+				<ol>
+					<li>mongod</li>
+					<li>mongo.exe</li>
+				</ol>
+			<li>Instalar cygwing que es un emulador de consola de linux</li>
+			<li>Escoger una carpeta, previamente creada, donde instalar cygwing, una independiente</li>
+				<ol>Seleccionar los paquetes a descargar
+					<li>git - devel, distributed version control system</li>
+					<li>ssh - net, autossh: automaticaly restart ssh sessions and tunnels</li>
+					<li>nano - editors, nano: ...</li>
+					<li>wget - web, wget ...</li>
+				</ol>
+			<li>En cygwing, en la consola escribir 2 veces cd ..</li>
+				<ol>
+					<li>buscar con ls la carpeta cygdrive (para acceder al directorio C del windows)</li>
+					<li>cd c</li>
+					<li>cd wamp</li>
+					<li>cd www</li>
+					<li>crear directorio del proyecto mkdir 'proyecto-final'</li>
+					<li>cd proyecto-final</li>
+					<li>instalar todas las dependencias dentro de esta carpeta con npm init</li>
+				</ol>
+			<li>Crear alias para acceder directamende desde la consola al directorio del proyecto</li>
+				<ol>
+					<li>entrar dentro de la carpeta cygwing64 - home - 'nombrePc' y editar el fichero bash-profile</li>
+					<li>alias proyecto-final="cd /cygdrive/c/wamp/www/curso-mean"; (sin espacios entre letras y = )</li>
+					<li>para que funcione hay que reiniciar la consola</li>
+					<li>se escribe en la consola proyecto-final</li>
+				</ol>
+			<li>Instalar dependencias</li>
+				<ol>
+					<li>npm install express --save (es un framework para crear API Rest)</li>
+					<li>npm install bcrypt-nodejs --save (libreria para encryptar contraseñas)</li>
+					<li>npm install body-parser --save (para parsear las peticiones que llegan por el post, pasarlo a json y convertirlo en objeto)</li>
+					<li>npm install connect-multiparty --save(libreria que permite subir ficheros con node, utiliza protocolo http)</li>
+					<li>npm install jwt-simple --save(libreria para la autentificación con tokens)</li>
+					<li>npm install moment --save</li>
+					<li>npm install mongoose --save (para trabajar con la bd de mongo)</li>
+					<li>npm install mongoose-pagination --save </li>
+					<li>npm install nodemon --save-dev (cada vez que hagamos un cambio se aplica en servidor)</li>
+				</ol>
+			<li>Para dezinstalar un paquetes, una dependencia</li>
+				<ol>
+					<li>npm uninstall mongoose --save</li>
+				</ol>
+			<li>Crear la base de datos en c - Program Files - mongoDB - Server - bin</li>
+				<ol>
+					<li>ejecutamos mongod.exe</li>
+					<li>ejecutamos mongo.exe</li>
+				</ol>
+				<ol>
+					<li>use curso-mean (para crear la bd)</li>
+					<li>db.artists.save({name: 'Delafuente', description: 'Musica Pop Folklorica', image: 'null'}); (para crear una colección -tabla)</li>
+					<li>db.artists.find(); (busca todos los datos que hay en la colección) </li>
+					<li>show dbs; (para mostrar toda la base de datos)</li>
+				</ol>
+			<li>Crear la conexion a la base de datos mongoDB y crear un servidor en nodeJS para escuchas de nuestra peticiones</li>
+				<ol>
+					<li>Crear un fichero index.js</li>
+					<li>se añade "start": "nodemon index.js", en script, en el fichero package.json</li>
+					<li>Probar que funciona la conexion en el terminal lanzamos npm start</li>
+				</ol>
+			<li>Crear el servidor web</li>
+				<ol>
+					<li>crear un fichero app.js en la carpeta raiz</li>
+					<li>se comprueba otra vez con npm start</li>
+					<li>y en navegador se puede comprobar escribiendo localhost:3977 (la respuesta seriá Cannot GET/ )</li>
+				</ol>
+			<li>Crear modelo usuario añadiendo una carpeta </li>
+				<ol>
+					<li>crear modelo usuario dentro de la carpeta models añadiendo el fichero user.js</li>
+					<li>crear modelo usuario dentro de la carpeta models añadiendo el fichero album.js</li>
+					<li>crear modelo usuario dentro de la carpeta models añadiendo el fichero song.js</li>
+					<li>crear modelo usuario dentro de la carpeta models añadiendo el fichero artist.js</li>
+				</ol>
+			<li>Crear el controlador de api</li>
+				<ol>
+					<li>crear el directorio controllers (estos ficheros son el intermediario entre el usuario y la bd)</li>
+					<li>creamos el controlador de usuario, el fichero user.js</li>
+					<li>ahora creamos la carpeta routes en el directorio raiz para crear las rutas</li>
+					<li>dentro de la carpeta route creamos el fichero user.js</li>
+				</ol>
+			<li>Crear un metodo en controlador para el registro de nuevos usuarios en la bd</li>
+				<ol>
+					<li>en el fichero user.js en controllers se añade ... </li>
+				</ol>
+			<li>Luego se crea el método para el login</li>
+				<ol>
+					<li>Luego hay que crear la ruta del login en el fichero user.js del routes</li>
+					<li>Luego hay exportar la ruta del login en el fichero user.js del controllers</li>
+				</ol>
+			<li>Crear un servidor para jwt</li>
+				<ol>
+					<li>primero hay que crear un servicio creando un fichero jwt.js dentro de la carpeta services</li>
+					<li>en user.js de controllers hay que devolver el token de jwt</li>
+					<li>comprobar el método de que funcione arrancando el servidor con npm start</li>
+				</ol>
+			<li>Crear el middleware de autenticación (un método para comprobar la autenticación)</li>
+				<ol>
+					<li>se crea la carpeta middlewares con el fichero authenticated.js</li>
+					<li>luego hay que usarlo dentro de una ruta, user.js de routes y cargarlo</li>
+				</ol>
+			<li>Actualizar un usuario</li>
+				<ol>
+					<li></li>
+				</ol>
+		</ol>
+	</body>
+</html>
