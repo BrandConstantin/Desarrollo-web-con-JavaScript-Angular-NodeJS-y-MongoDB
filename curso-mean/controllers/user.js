@@ -107,9 +107,33 @@ function loginUser(req, res) {
     });
 }
 
+//método de actualizar un usuario
+function updateUser(req, res) {
+    //recojemos el id del usuario de la url
+    var userId = req.params.id;
+    //conseguimos el body de la petición que llega por post
+    var update = req.body;
+
+    //este método se encarga de actualizar los datos del usuario
+    User.findByIdAndUpdate(userId, update, (err, userUpdated) => {
+        //si nos devuelve un error
+        if (err) {
+            res.status(500).send({ message: 'Error al actualizar el usuario!' });
+        } else { //sino
+            //si no llega los datos del usuario
+            if (!userUpdated) {
+                res.status(404).send({ message: 'No se ha podido actualizar el usuario!' });
+            } else { //sino
+                res.status(200).send({ user: userUpdated });
+            }
+        }
+    });
+}
+
 //para poder utilizar estos metodos fuera del fichero lo exportamos
 module.exports = {
     pruebas,
     saveUser,
-    loginUser
+    loginUser,
+    updateUser
 };
