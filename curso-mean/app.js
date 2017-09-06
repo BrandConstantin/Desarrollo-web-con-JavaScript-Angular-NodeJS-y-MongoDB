@@ -10,6 +10,7 @@ var app = express();
 
 //cargar rutas
 var user_routes = require('./routes/user');
+var artist_routes = require('./routes/artist');
 
 //configurar bodyParser
 //convertir los datos que nos llega por las peticiones http en objeto
@@ -20,6 +21,7 @@ app.use(bodyParser.json());
 
 //rutas base
 app.use('/api', user_routes);
+app.use('/api', artist_routes);
 
 //ejemplo de ruta
 /*app.get('/pruebas', function(req, res) { //una función de callback

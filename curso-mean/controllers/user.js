@@ -12,6 +12,9 @@ var bcrypt = require('bcrypt-nodejs');
 var User = require('../models/user');
 //importar el token
 var jwt = require('../services/jwt');
+//modulos para extraer la imágen del usu
+var fs = require('fs');
+var path = require('path');
 
 //creamos un metodo que recibe la petición y la devuelve
 function pruebas(req, res) {
@@ -130,10 +133,65 @@ function updateUser(req, res) {
     });
 }
 
+//método para cargar ficheros
+function uploadImage(req, res) {
+    //recibimos userId como parámetro de la url
+    var userId = req.params.id;
+    var file_name = 'Imágen no subida...';
+
+    if (req.files) {
+        var file_path = req.files.image.path;
+        //recortar el string que llega por path y dejar solo el nombre de la imagen
+        var file_split = file_path.split('\\');
+        var file_name = file_split[2];
+
+        //sacar extención de la imágen
+        var ext_split = file_name.split('\.');
+        var file_ext = ext_split[1];
+
+        //console.log(ext_split);
+
+        //comprobar que el fichero tiene la extención correcta
+        if (file_ext == 'png' || file_ext == 'jpg' || file_ext == 'gif') {
+            //actualizar la imágen que hay el la bd del usu
+            User.findByIdAndUpdate(userId, { image: file_name }, (err, userUpdated) => {
+                //si no llega los datos del usuario
+                if (!userUpdated) {
+                    res.status(404).send({ message: 'No se ha podido actualizar el usuario!' });
+                } else { //sino
+                    res.status(200).send({ user: userUpdated });
+                }
+            });
+        } else {
+            res.status(200).send({ message: 'Extenció de archivo no valido' });
+        }
+    } else {
+        res.status(200).send({ message: 'No se ha subida ningúna imágen' });
+    }
+}
+
+//método para extraer la imágen del usuario
+function getImageFile(req, res) {
+    var imageFile = req.params.imageFile;
+    var path_file = './uploads/users/' + imageFile;
+
+    fs.exists(path_file, function(exists) {
+        //si la imágen existe
+        if (exists) {
+            //respuesta que manda un fichero
+            res.sendFile(path.resolve(path_file));
+        } else { //sino
+            res.status(200).send({ message: 'No existe la imágen' });
+        }
+    });
+}
+
 //para poder utilizar estos metodos fuera del fichero lo exportamos
 module.exports = {
     pruebas,
     saveUser,
     loginUser,
-    updateUser
+    updateUser,
+    uploadImage,
+    getImageFile
 };
