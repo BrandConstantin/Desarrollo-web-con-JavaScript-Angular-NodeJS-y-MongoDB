@@ -195,6 +195,55 @@
 				</ol>
 			<li>Configurar la cabecera CORS en app.js</li>
 			<li>Devolver la imágen subida por el usuario</li>
+			<li>Organizar la app en dos carpetas una para api y otra para cliente</li>
+				<ol>
+					<li>arrastrar todo el contenido en una carpeta llamada api</li>
+				</ol>
+			<li>Crear una carpeta llamada client donde instalar Angular Cli</li>
+				<ol>
+					<li>en la carpeta "/cygdrive/c/wamp/www" actualizamos el npm con el comando npm install -g npm</li>
+					<li>luego instalamos angular cli con npm install -g angular-cli</li>
+					<li>crar nuevo proyecto con el comando ng new "curso-angular"</li>
+					<li>entramos en el directorio del proyecto con "cd curso-angular"</li>
+					<li>con el comando ng serve lanzamos la aplicación en el navegador</li>
+				</ol>
+			<li>Instalamos Angular</li>
+				<ol>
+					<li>entramos en en la carpeta del proyecto curso-mean - /cygdrive/c/wamp/www/curso-mean </li>
+					<li>lanzamos el comando de angular-cli, "ng new client"</li>
+					<li>dentro de la carpeta client, cd client, hacemos npm start</li>
+				</ol>
+			<li>Incluir librerias de bootstrap y jquery</li>
+				<ol>
+					<li>descargarmos bootstrap</li>
+					<li>se guarda dentro de "curso-mean/client/src/assets/nombre-carpeta-bootstrap"</li>
+					<li>descargamos jquery cdn, en versión minified, copiando la url escirbiendola en navegador y todo el código se guarda en un archivo</li>
+					<li>se guarda dentro de "curso-mean/client/src/assets/nombre-carpeta-js"</li>
+					<li>incluir las dos libreria en el index.html</li>
+					<li>en la consola de navegador con $('body'); comprobamos que el jquery funciona correctamente</li>
+				</ol>
+			<li>Crear los modelos de datos, de golpe</li>
+				<ol>
+					<li>dentro de la carpeta app creamos la carpeta models y dentro los fichero album, artist, user, song todos con extención ts</li>
+				</ol>
+			<li>Crear componente principal y las vistas</li>
+				<ol>
+					<li>en el fichero app.component.ts importamos las clases creadas</li>
+					<li>se modifica app.component.html para tener un div de login y otro de la aplicación</li>
+					<li>crear formulari de login y registro</li>
+				</ol>
+			<li>Two-way data binding en formularios</li>
+				<ol>
+					<li>crear el método onSubmit()</li>
+				</ol>
+			<li>Crear servicios</li>
+				<ol>
+					<li>creamos dentro de la carpeta app otra carpeta llamada services</li>
+					<li>creamos el fichero user.service.ts</li>
+					<li>creamos el fichero global.ts</li>
+					<li>creamos el método de login luego lo importamos en app.component.ts</li>
+				</ol>
+			<li>Crear método de login en el servicio de usuario</li>
 		</ol>
 	</body>
 </html>
