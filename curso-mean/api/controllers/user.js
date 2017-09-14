@@ -117,6 +117,10 @@ function updateUser(req, res) {
     //conseguimos el body de la petición que llega por post
     var update = req.body;
 
+    if (userId != req.user.sub) {
+        return res.status(500).send({ message: 'No tienes permiso para actualizar este usuario' });
+    }
+
     //este método se encarga de actualizar los datos del usuario
     User.findByIdAndUpdate(userId, update, (err, userUpdated) => {
         //si nos devuelve un error
