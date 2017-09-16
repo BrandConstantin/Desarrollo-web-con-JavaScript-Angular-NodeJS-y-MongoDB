@@ -21,7 +21,7 @@ export class UploadService{
     }
 
     //subir ficheros
-    makeFileRequest(url: string, params: Array<string>, file: Array<File>, token: string){
+    makeFileRequest(url: string, params: Array<string>, file: Array<File>, token: string, name: string){
 
         return new Promise(function(resolve, reject){
             var formData: any = new FormData();
@@ -29,7 +29,7 @@ export class UploadService{
 
             //recorrer los ficheros para subirlos
             for(var i = 0; i < file.length; i++){
-                formData.append('image', file[i], file[i].name);
+                formData.append(name, file[i], file[i].name);
             }
 
             xhr.onreadystatechange = function(){

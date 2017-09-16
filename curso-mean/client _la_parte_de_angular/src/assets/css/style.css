@@ -74,3 +74,45 @@ body {
     border-bottom: 3px solid #84B;
     padding-bottom: 3px;
 }
+
+.artist_image_for_edit img {
+    width: 70px;
+}
+
+.artist-list {
+    margin: 0px;
+    padding: 0px;
+    margin-top: 30px;
+    list-style: none;
+}
+
+.artist-item {
+    width: 25px;
+    margin: 0px;
+    padding: 0px;
+    height: 40px;
+    border: 2px solid #444;
+    margin-left: 20px;
+    margin-top: 20px;
+}
+
+.artist-item .artist-image {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    background: #000;
+}
+
+.artist-item .artist-image img {
+    height: 100%;
+}
+
+.artist-item .artist-name {
+    color: white;
+    padding: 10px;
+    background: #223;
+}
+
+.artist-item .artist-name a {
+    color: white;
+}

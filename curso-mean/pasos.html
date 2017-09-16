@@ -1,253 +1,304 @@
 <!Doctype html>
 <html>
-	<head>
-		<meta charset="utf-8"/>
-	</head>
-	<body>
-		<h1>Pasos a realizar</h1>
 
-		<ol>
-			<li>Descargar NodeJS</li>
-			<ol>Comprobar que funciona
-				<li>npm -v</li>
-				<li>node -v</li>
-			</ol>
-			<li>Actualizar el npm en el pc</li>
-				<ol>
-					<li>npm install -g npm</li>
-				</ol>
-			<li>Instalar MongoDB</li>
-			<li>Crear en directorio C una carpeta 'data' y dentro otra carpeta que se llame 'db'</li>
-			<li>Entrar en MongoDB, Server, bin y ejecutar</li>
-				<ol>
-					<li>mongod</li>
-					<li>mongo.exe</li>
-				</ol>
-			<li>Instalar cygwing que es un emulador de consola de linux</li>
-			<li>Escoger una carpeta, previamente creada, donde instalar cygwing, una independiente</li>
-				<ol>Seleccionar los paquetes a descargar
-					<li>git - devel, distributed version control system</li>
-					<li>ssh - net, autossh: automaticaly restart ssh sessions and tunnels</li>
-					<li>nano - editors, nano: ...</li>
-					<li>wget - web, wget ...</li>
-				</ol>
-			<li>En cygwing, en la consola escribir 2 veces cd ..</li>
-				<ol>
-					<li>buscar con ls la carpeta cygdrive (para acceder al directorio C del windows)</li>
-					<li>cd c</li>
-					<li>cd wamp</li>
-					<li>cd www</li>
-					<li>crear directorio del proyecto mkdir 'proyecto-final'</li>
-					<li>cd proyecto-final</li>
-					<li>instalar todas las dependencias dentro de esta carpeta con npm init</li>
-				</ol>
-			<li>Crear alias para acceder directamende desde la consola al directorio del proyecto</li>
-				<ol>
-					<li>entrar dentro de la carpeta cygwing64 - home - 'nombrePc' y editar el fichero bash-profile</li>
-					<li>alias proyecto-final="cd /cygdrive/c/wamp/www/curso-mean"; (sin espacios entre letras y = )</li>
-					<li>para que funcione hay que reiniciar la consola</li>
-					<li>se escribe en la consola proyecto-final</li>
-				</ol>
-			<li>Instalar dependencias</li>
-				<ol>
-					<li>npm install express --save (es un framework para crear API Rest)</li>
-					<li>npm install bcrypt-nodejs --save (libreria para encryptar contraseñas)</li>
-					<li>npm install body-parser --save (para parsear las peticiones que llegan por el post, pasarlo a json y convertirlo en objeto)</li>
-					<li>npm install connect-multiparty --save(libreria que permite subir ficheros con node, utiliza protocolo http)</li>
-					<li>npm install jwt-simple --save(libreria para la autentificación con tokens)</li>
-					<li>npm install moment --save</li>
-					<li>npm install mongoose --save (para trabajar con la bd de mongo)</li>
-					<li>npm install mongoose-pagination --save </li>
-					<li>npm install nodemon --save-dev (cada vez que hagamos un cambio se aplica en servidor)</li>
-				</ol>
-			<li>Para dezinstalar un paquetes, una dependencia</li>
-				<ol>
-					<li>npm uninstall mongoose --save</li>
-				</ol>
-			<li>Crear la base de datos en c - Program Files - mongoDB - Server - bin</li>
-				<ol>
-					<li>ejecutamos mongod.exe</li>
-					<li>ejecutamos mongo.exe</li>
-				</ol>
-				<ol>
-					<li>use curso-mean (para crear la bd)</li>
-					<li>db.artists.save({name: 'Delafuente', description: 'Musica Pop Folklorica', image: 'null'}); (para crear una colección -tabla)</li>
-					<li>db.artists.find(); (busca todos los datos que hay en la colección) </li>
-					<li>show dbs; (para mostrar toda la base de datos)</li>
-				</ol>
-			<li>Crear la conexion a la base de datos mongoDB y crear un servidor en nodeJS para escuchas de nuestra peticiones</li>
-				<ol>
-					<li>Crear un fichero index.js</li>
-					<li>se añade "start": "nodemon index.js", en script, en el fichero package.json</li>
-					<li>Probar que funciona la conexion en el terminal lanzamos npm start</li>
-				</ol>
-			<li>Crear el servidor web</li>
-				<ol>
-					<li>crear un fichero app.js en la carpeta raiz</li>
-					<li>se comprueba otra vez con npm start</li>
-					<li>y en navegador se puede comprobar escribiendo localhost:3977 (la respuesta seriá Cannot GET/ )</li>
-				</ol>
-			<li>Crear modelo usuario añadiendo una carpeta </li>
-				<ol>
-					<li>crear modelo usuario dentro de la carpeta models añadiendo el fichero user.js</li>
-					<li>crear modelo usuario dentro de la carpeta models añadiendo el fichero album.js</li>
-					<li>crear modelo usuario dentro de la carpeta models añadiendo el fichero song.js</li>
-					<li>crear modelo usuario dentro de la carpeta models añadiendo el fichero artist.js</li>
-				</ol>
-			<li>Crear el controlador de api</li>
-				<ol>
-					<li>crear el directorio controllers (estos ficheros son el intermediario entre el usuario y la bd)</li>
-					<li>creamos el controlador de usuario, el fichero user.js</li>
-					<li>ahora creamos la carpeta routes en el directorio raiz para crear las rutas</li>
-					<li>dentro de la carpeta route creamos el fichero user.js</li>
-				</ol>
-			<li>Crear un metodo en controlador para el registro de nuevos usuarios en la bd</li>
-				<ol>
-					<li>en el fichero user.js en controllers se añade ... </li>
-				</ol>
-			<li>Luego se crea el método para el login</li>
-				<ol>
-					<li>Luego hay que crear la ruta del login en el fichero user.js del routes</li>
-					<li>Luego hay exportar la ruta del login en el fichero user.js del controllers</li>
-				</ol>
-			<li>Crear un servidor para jwt</li>
-				<ol>
-					<li>primero hay que crear un servicio creando un fichero jwt.js dentro de la carpeta services</li>
-					<li>en user.js de controllers hay que devolver el token de jwt</li>
-					<li>comprobar el método de que funcione arrancando el servidor con npm start</li>
-				</ol>
-			<li>Crear el middleware de autenticación (un método para comprobar la autenticación)</li>
-				<ol>
-					<li>se crea la carpeta middlewares con el fichero authenticated.js</li>
-					<li>luego hay que usarlo dentro de una ruta, user.js de routes y cargarlo</li>
-				</ol>
-			<li>Actualizar un usuario</li>
-				<ol>
-					<li>crear el método updateUser dentro del fichero user.js de controllers</li>
-					<li>despues en user.js de routes hay que crearle una ruta</li>
-				</ol>
-			<li>Subir el avatar del usuario</li>
-				<ol>
-					<li>en el fichero user.js de routes cargamos la libreria multipart</li>
-					<li>creamos un middleware para utilizar el multipart e indicar donde se suben los ficheros</li>
-					<li>creamos el directorio uploadscon el fichero users</li>
-					<li>en el fichero users.js de controllers cremos el método controlador</li>
-					<li>en user.js de controller exportamos el método</li>
-					<li>creamos una ruta en user.js de routes</li>
-					<li>comprobar que el fichero tiene la extención correcta</li>
-				</ol>
-			<li>Crer un método para que nos devuelva la imágen del usuario</li>
-				<ol>
-					<li>primero hay que cargar los modulos fs y path en user.js de controller</li>
-					<li>crear el método en el mismo fichero</li>
-					<li>luego hay que exportarlo</li>
-					<li>crear la ruta en user.js de routes</li>
-					<li>comprobar en el navegador </li>
-				</ol>
-			<li>Crear el controlador de artistas y las rutas</li>
-				<ol>
-					<li>en controller creamos el fichero artist.js</li>
-					<li>creamos el método y lo exportamos</li>
-					<li>crear el fichero de rutas en la carpeta routes</li>
-					<li>hay que cargar la ruta también en app.js</li>
-				</ol>
-			<li>Crear un artista</li>
-				<ol>
-					<li>nos vamos al controlador de artistas para crear el metodo de guardar artistas</li>
-					<li>luego hay que exportar el método</li>
-					<li>luego crear su ruta</li>
-				</ol>
-			<li>Crear método para sacar un artista de la bd</li>
-				<ol>
-					<li>en el controlador se crea el método</li>
-				</ol>
-			<li>Listado de artistas paginado</li>
-				<ol>
-					<li>crear un método en controler</li>
-					<li>hay que importar el módulo de páginación mongoose-pagination</li>
-					<li>exportarlo</li>
-					<li>crear la ruta</li>
-					<li>comprobar en el navegador localhost:3977/api/artists</li>
-				</ol>
-			<li>Actualizar un artista</li>
-				<ol>
-					<li>cremos un nuevo método</li>
-					<li>exportamos el modulo</li>
-					<li>creamos la ruta</li>
-				</ol>
-			<li>Eliminar un artista, borrar todos los albums y todas sus canciones, todo encadenado</li>
-			<li>Método de las imágenes de los artistas, de cargar imágenes</li>
-			<li>Controlador de albums</li>
-				<ol>
-					<li>Devolver un album</li>
-					<li>Mostrar todos los albums</li>
-					<li>Método para actualizar el album</li>
-					<li>Crear método para borrar el album</li>
-					<li>Crear método para las imágenes del album</li>
-				</ol>
-			<li>Controlador de canciones</li>
-				<ol>
-					<li>Devolver una canciones</li>
-					<li>Mostrar todos las canciones</li>
-					<li>Método para actualizar las canciones</li>
-					<li>Crear método para borrar las canciones</li>
-					<li>Crear método para las imágenes las canciones</li>
-				</ol>
-			<li>Configurar la cabecera CORS en app.js</li>
-			<li>Devolver la imágen subida por el usuario</li>
-			<li>Organizar la app en dos carpetas una para api y otra para cliente</li>
-				<ol>
-					<li>arrastrar todo el contenido en una carpeta llamada api</li>
-				</ol>
-			<li>Crear una carpeta llamada client donde instalar Angular Cli</li>
-				<ol>
-					<li>en la carpeta "/cygdrive/c/wamp/www" actualizamos el npm con el comando npm install -g npm</li>
-					<li>luego instalamos angular cli con npm install -g angular-cli</li>
-					<li>crar nuevo proyecto con el comando ng new "curso-angular"</li>
-					<li>entramos en el directorio del proyecto con "cd curso-angular"</li>
-					<li>con el comando ng serve lanzamos la aplicación en el navegador</li>
-				</ol>
-			<li>Instalamos Angular</li>
-				<ol>
-					<li>entramos en en la carpeta del proyecto curso-mean - /cygdrive/c/wamp/www/curso-mean </li>
-					<li>lanzamos el comando de angular-cli, "ng new client"</li>
-					<li>dentro de la carpeta client, cd client, hacemos npm start</li>
-				</ol>
-			<li>Incluir librerias de bootstrap y jquery</li>
-				<ol>
-					<li>descargarmos bootstrap</li>
-					<li>se guarda dentro de "curso-mean/client/src/assets/nombre-carpeta-bootstrap"</li>
-					<li>descargamos jquery cdn, en versión minified, copiando la url escirbiendola en navegador y todo el código se guarda en un archivo</li>
-					<li>se guarda dentro de "curso-mean/client/src/assets/nombre-carpeta-js"</li>
-					<li>incluir las dos libreria en el index.html</li>
-					<li>en la consola de navegador con $('body'); comprobamos que el jquery funciona correctamente</li>
-				</ol>
-			<li>Crear los modelos de datos, de golpe</li>
-				<ol>
-					<li>dentro de la carpeta app creamos la carpeta models y dentro los fichero album, artist, user, song todos con extención ts</li>
-				</ol>
-			<li>Crear componente principal y las vistas</li>
-				<ol>
-					<li>en el fichero app.component.ts importamos las clases creadas</li>
-					<li>se modifica app.component.html para tener un div de login y otro de la aplicación</li>
-					<li>crear formulari de login y registro</li>
-				</ol>
-			<li>Two-way data binding en formularios</li>
-				<ol>
-					<li>crear el método onSubmit()</li>
-				</ol>
-			<li>Crear servicios</li>
-				<ol>
-					<li>creamos dentro de la carpeta app otra carpeta llamada services</li>
-					<li>creamos el fichero user.service.ts</li>
-					<li>creamos el fichero global.ts</li>
-					<li>creamos el método de login luego lo importamos en app.component.ts</li>
-				</ol>
-			<li>Crear método de login en el servicio de usuario</li>
-			<li>Llamada al servicio para identificar el usuario</li>
-			<li>Persistir el login con localStorage</li>
-			<li>Cerrar sesión en el cliente</li>
-			<li>Crear un nuevo método para guardar los datos en la bd</li>
-		</ol>
-	</body>
+<head>
+    <meta charset="utf-8" />
+</head>
+
+<body>
+    <h1>Pasos a realizar</h1>
+
+    <ol>
+        <li>Descargar NodeJS</li>
+        <ol>Comprobar que funciona
+            <li>npm -v</li>
+            <li>node -v</li>
+        </ol>
+        <li>Actualizar el npm en el pc</li>
+        <ol>
+            <li>npm install -g npm</li>
+        </ol>
+        <li>Instalar MongoDB</li>
+        <li>Crear en directorio C una carpeta 'data' y dentro otra carpeta que se llame 'db'</li>
+        <li>Entrar en MongoDB, Server, bin y ejecutar</li>
+        <ol>
+            <li>mongod</li>
+            <li>mongo.exe</li>
+        </ol>
+        <li>Instalar cygwing que es un emulador de consola de linux</li>
+        <li>Escoger una carpeta, previamente creada, donde instalar cygwing, una independiente</li>
+        <ol>Seleccionar los paquetes a descargar
+            <li>git - devel, distributed version control system</li>
+            <li>ssh - net, autossh: automaticaly restart ssh sessions and tunnels</li>
+            <li>nano - editors, nano: ...</li>
+            <li>wget - web, wget ...</li>
+        </ol>
+        <li>En cygwing, en la consola escribir 2 veces cd ..</li>
+        <ol>
+            <li>buscar con ls la carpeta cygdrive (para acceder al directorio C del windows)</li>
+            <li>cd c</li>
+            <li>cd wamp</li>
+            <li>cd www</li>
+            <li>crear directorio del proyecto mkdir 'proyecto-final'</li>
+            <li>cd proyecto-final</li>
+            <li>instalar todas las dependencias dentro de esta carpeta con npm init</li>
+        </ol>
+        <li>Crear alias para acceder directamende desde la consola al directorio del proyecto</li>
+        <ol>
+            <li>entrar dentro de la carpeta cygwing64 - home - 'nombrePc' y editar el fichero bash-profile</li>
+            <li>alias proyecto-final="cd /cygdrive/c/wamp/www/curso-mean"; (sin espacios entre letras y = )</li>
+            <li>para que funcione hay que reiniciar la consola</li>
+            <li>se escribe en la consola proyecto-final</li>
+        </ol>
+        <li>Instalar dependencias</li>
+        <ol>
+            <li>npm install express --save (es un framework para crear API Rest)</li>
+            <li>npm install bcrypt-nodejs --save (libreria para encryptar contraseñas)</li>
+            <li>npm install body-parser --save (para parsear las peticiones que llegan por el post, pasarlo a json y convertirlo en objeto)</li>
+            <li>npm install connect-multiparty --save(libreria que permite subir ficheros con node, utiliza protocolo http)</li>
+            <li>npm install jwt-simple --save(libreria para la autentificación con tokens)</li>
+            <li>npm install moment --save</li>
+            <li>npm install mongoose --save (para trabajar con la bd de mongo)</li>
+            <li>npm install mongoose-pagination --save </li>
+            <li>npm install nodemon --save-dev (cada vez que hagamos un cambio se aplica en servidor)</li>
+        </ol>
+        <li>Para dezinstalar un paquetes, una dependencia</li>
+        <ol>
+            <li>npm uninstall mongoose --save</li>
+        </ol>
+        <li>Crear la base de datos en c - Program Files - mongoDB - Server - bin</li>
+        <ol>
+            <li>ejecutamos mongod.exe</li>
+            <li>ejecutamos mongo.exe</li>
+        </ol>
+        <ol>
+            <li>use curso-mean (para crear la bd)</li>
+            <li>db.artists.save({name: 'Delafuente', description: 'Musica Pop Folklorica', image: 'null'}); (para crear una colección -tabla)</li>
+            <li>db.artists.find(); (busca todos los datos que hay en la colección) </li>
+            <li>show dbs; (para mostrar toda la base de datos)</li>
+        </ol>
+        <li>Crear la conexion a la base de datos mongoDB y crear un servidor en nodeJS para escuchas de nuestra peticiones</li>
+        <ol>
+            <li>Crear un fichero index.js</li>
+            <li>se añade "start": "nodemon index.js", en script, en el fichero package.json</li>
+            <li>Probar que funciona la conexion en el terminal lanzamos npm start</li>
+        </ol>
+        <li>Crear el servidor web</li>
+        <ol>
+            <li>crear un fichero app.js en la carpeta raiz</li>
+            <li>se comprueba otra vez con npm start</li>
+            <li>y en navegador se puede comprobar escribiendo localhost:3977 (la respuesta seriá Cannot GET/ )</li>
+        </ol>
+        <li>Crear modelo usuario añadiendo una carpeta </li>
+        <ol>
+            <li>crear modelo usuario dentro de la carpeta models añadiendo el fichero user.js</li>
+            <li>crear modelo usuario dentro de la carpeta models añadiendo el fichero album.js</li>
+            <li>crear modelo usuario dentro de la carpeta models añadiendo el fichero song.js</li>
+            <li>crear modelo usuario dentro de la carpeta models añadiendo el fichero artist.js</li>
+        </ol>
+        <li>Crear el controlador de api</li>
+        <ol>
+            <li>crear el directorio controllers (estos ficheros son el intermediario entre el usuario y la bd)</li>
+            <li>creamos el controlador de usuario, el fichero user.js</li>
+            <li>ahora creamos la carpeta routes en el directorio raiz para crear las rutas</li>
+            <li>dentro de la carpeta route creamos el fichero user.js</li>
+        </ol>
+        <li>Crear un metodo en controlador para el registro de nuevos usuarios en la bd</li>
+        <ol>
+            <li>en el fichero user.js en controllers se añade ... </li>
+        </ol>
+        <li>Luego se crea el método para el login</li>
+        <ol>
+            <li>Luego hay que crear la ruta del login en el fichero user.js del routes</li>
+            <li>Luego hay exportar la ruta del login en el fichero user.js del controllers</li>
+        </ol>
+        <li>Crear un servidor para jwt</li>
+        <ol>
+            <li>primero hay que crear un servicio creando un fichero jwt.js dentro de la carpeta services</li>
+            <li>en user.js de controllers hay que devolver el token de jwt</li>
+            <li>comprobar el método de que funcione arrancando el servidor con npm start</li>
+        </ol>
+        <li>Crear el middleware de autenticación (un método para comprobar la autenticación)</li>
+        <ol>
+            <li>se crea la carpeta middlewares con el fichero authenticated.js</li>
+            <li>luego hay que usarlo dentro de una ruta, user.js de routes y cargarlo</li>
+        </ol>
+        <li>Actualizar un usuario</li>
+        <ol>
+            <li>crear el método updateUser dentro del fichero user.js de controllers</li>
+            <li>despues en user.js de routes hay que crearle una ruta</li>
+        </ol>
+        <li>Subir el avatar del usuario</li>
+        <ol>
+            <li>en el fichero user.js de routes cargamos la libreria multipart</li>
+            <li>creamos un middleware para utilizar el multipart e indicar donde se suben los ficheros</li>
+            <li>creamos el directorio uploadscon el fichero users</li>
+            <li>en el fichero users.js de controllers cremos el método controlador</li>
+            <li>en user.js de controller exportamos el método</li>
+            <li>creamos una ruta en user.js de routes</li>
+            <li>comprobar que el fichero tiene la extención correcta</li>
+        </ol>
+        <li>Crer un método para que nos devuelva la imágen del usuario</li>
+        <ol>
+            <li>primero hay que cargar los modulos fs y path en user.js de controller</li>
+            <li>crear el método en el mismo fichero</li>
+            <li>luego hay que exportarlo</li>
+            <li>crear la ruta en user.js de routes</li>
+            <li>comprobar en el navegador </li>
+        </ol>
+        <li>Crear el controlador de artistas y las rutas</li>
+        <ol>
+            <li>en controller creamos el fichero artist.js</li>
+            <li>creamos el método y lo exportamos</li>
+            <li>crear el fichero de rutas en la carpeta routes</li>
+            <li>hay que cargar la ruta también en app.js</li>
+        </ol>
+        <li>Crear un artista</li>
+        <ol>
+            <li>nos vamos al controlador de artistas para crear el metodo de guardar artistas</li>
+            <li>luego hay que exportar el método</li>
+            <li>luego crear su ruta</li>
+        </ol>
+        <li>Crear método para sacar un artista de la bd</li>
+        <ol>
+            <li>en el controlador se crea el método</li>
+        </ol>
+        <li>Listado de artistas paginado</li>
+        <ol>
+            <li>crear un método en controler</li>
+            <li>hay que importar el módulo de páginación mongoose-pagination</li>
+            <li>exportarlo</li>
+            <li>crear la ruta</li>
+            <li>comprobar en el navegador localhost:3977/api/artists</li>
+        </ol>
+        <li>Actualizar un artista</li>
+        <ol>
+            <li>cremos un nuevo método</li>
+            <li>exportamos el modulo</li>
+            <li>creamos la ruta</li>
+        </ol>
+        <li>Eliminar un artista, borrar todos los albums y todas sus canciones, todo encadenado</li>
+        <li>Método de las imágenes de los artistas, de cargar imágenes</li>
+        <li>Controlador de albums</li>
+        <ol>
+            <li>Devolver un album</li>
+            <li>Mostrar todos los albums</li>
+            <li>Método para actualizar el album</li>
+            <li>Crear método para borrar el album</li>
+            <li>Crear método para las imágenes del album</li>
+        </ol>
+        <li>Controlador de canciones</li>
+        <ol>
+            <li>Devolver una canciones</li>
+            <li>Mostrar todos las canciones</li>
+            <li>Método para actualizar las canciones</li>
+            <li>Crear método para borrar las canciones</li>
+            <li>Crear método para las imágenes las canciones</li>
+        </ol>
+        <li>Configurar la cabecera CORS en app.js</li>
+        <li>Devolver la imágen subida por el usuario</li>
+        <li>Organizar la app en dos carpetas una para api y otra para cliente</li>
+        <ol>
+            <li>arrastrar todo el contenido en una carpeta llamada api</li>
+        </ol>
+        <li>Crear una carpeta llamada client donde instalar Angular Cli</li>
+        <ol>
+            <li>en la carpeta "/cygdrive/c/wamp/www" actualizamos el npm con el comando npm install -g npm</li>
+            <li>luego instalamos angular cli con npm install -g angular-cli</li>
+            <li>crar nuevo proyecto con el comando ng new "curso-angular"</li>
+            <li>entramos en el directorio del proyecto con "cd curso-angular"</li>
+            <li>con el comando ng serve lanzamos la aplicación en el navegador</li>
+        </ol>
+        <li>Instalamos Angular</li>
+        <ol>
+            <li>entramos en en la carpeta del proyecto curso-mean - /cygdrive/c/wamp/www/curso-mean </li>
+            <li>lanzamos el comando de angular-cli, "ng new client"</li>
+            <li>dentro de la carpeta client, cd client, hacemos npm start</li>
+        </ol>
+        <li>Incluir librerias de bootstrap y jquery</li>
+        <ol>
+            <li>descargarmos bootstrap</li>
+            <li>se guarda dentro de "curso-mean/client/src/assets/nombre-carpeta-bootstrap"</li>
+            <li>descargamos jquery cdn, en versión minified, copiando la url escirbiendola en navegador y todo el código se guarda en un archivo</li>
+            <li>se guarda dentro de "curso-mean/client/src/assets/nombre-carpeta-js"</li>
+            <li>incluir las dos libreria en el index.html</li>
+            <li>en la consola de navegador con $('body'); comprobamos que el jquery funciona correctamente</li>
+        </ol>
+        <li>Crear los modelos de datos, de golpe</li>
+        <ol>
+            <li>dentro de la carpeta app creamos la carpeta models y dentro los fichero album, artist, user, song todos con extención ts</li>
+        </ol>
+        <li>Crear componente principal y las vistas</li>
+        <ol>
+            <li>en el fichero app.component.ts importamos las clases creadas</li>
+            <li>se modifica app.component.html para tener un div de login y otro de la aplicación</li>
+            <li>crear formulari de login y registro</li>
+        </ol>
+        <li>Two-way data binding en formularios</li>
+        <ol>
+            <li>crear el método onSubmit()</li>
+        </ol>
+        <li>Crear servicios</li>
+        <ol>
+            <li>creamos dentro de la carpeta app otra carpeta llamada services</li>
+            <li>creamos el fichero user.service.ts</li>
+            <li>creamos el fichero global.ts</li>
+            <li>creamos el método de login luego lo importamos en app.component.ts</li>
+        </ol>
+        <li>Crear método de login en el servicio de usuario</li>
+        <li>Llamada al servicio para identificar el usuario</li>
+        <li>Persistir el login con localStorage</li>
+        <li>Cerrar sesión en el cliente</li>
+        <li>Crear un nuevo método para guardar los datos en la bd</li>
+        <li>Crear método para actualizar los datos en la bd</li>
+        <li>Crear componente para la sección de mis datos</li>
+        <ol>
+            <li>Se crea la carpeta components dentro de app</li>
+            <li>Dentro se añade el fichero user-edit.components.ts</li>
+            <li>Se crea otra carpeta la de views y dentro el fichero user-edit.html</li>
+            <li>Cargar el ultimo componente dentro de app.module.ts</li>
+        </ol>
+        <li>Crear menú de navegación</li>
+        <li>Configurar el routing</li>
+        <ol>
+            <li>dentro de app se crea el fichero app.routing.ts</li>
+            <li>luego se configura en app.modules</li>
+        </ol>
+        <li>Crear formulario de actualización del usuario</li>
+        <li>Crear una instancia del objeto user en user-edit.component.ts</li>
+        <li>Actualizar los datos</li>
+        <li>Subir imágen</li>
+        <li>Actualizar imágen del usuario</li>
+        <li>Maquetar barra literal</li>
+        <li>Componente para el listado de artistas </li>
+        <ol>
+            <li>importar en el app.module</li>
+            <li>crear la vista en la carpeta view con el nombre de artis-list.html</li>
+        </ol>
+        <li>Marcar elementos del menu con Angular</li>
+        <li>Mostrar el boton de añadir artista</li>
+        <li>Crear la página de inicio</li>
+        <li>Componente y formulari de añadir artistas</li>
+        <ol>
+            <li>importarlo en app.module.ts</li>
+        </ol>
+        <li>Crear servicios para artistas</li>
+        <li>Crear el artista</li>
+        <li>Crear componente para editar artista</li>
+        <li>Método en el servicio de artista</li>
+        <li>Ruta y cargar datos en el formulario de artistas</li>
+        <li>Editar los proprios datos del artista</li>
+        <li>Subir imágen de un artista</li>
+        <ol>
+            <li>en la carpeta service se crea un nuevo fichero llamado upload.service.ts</li>
+        </ol>
+        <li>Restringir acceso a la parte de crear artista</li>
+        <li>Listar artistas</li>
+        <ol>
+            <li>Maquetación de listado</li>
+        </ol>
+        <li>Detalle del artista creando el fichero artist-detail.components.ts en la carpeta componentes</li>
+        <ol></ol>
+    </ol>
+
 </html>
