@@ -80,4 +80,38 @@ export class ArtistListComponent implements OnInit{
             );
         });
     }
+
+    //método de eliminar artista
+    public confirmado;
+
+    onDeleteConfirm(id){
+        this.confirmado = id;
+    }
+
+    onCancelArtist(){
+        this.confirmado = null;
+    }
+
+    onDeleteArtist(id){
+        this._artistService.deleteArtist(this.token, id).subscribe(
+            response =>{
+                if(!response.artists){
+                    alert('Error en el servidor');
+                }
+                
+                this.getArtists();
+            },
+            error =>{
+                var errorMessage = <any>error;
+                
+                if(errorMessage != null){
+                    //convertimos en obj json
+                    var body = JSON.parse(error._body);
+        
+                    //this.alertMessage = body.message;
+                    console.log(error);
+                }
+            }
+        );
+    }
 }

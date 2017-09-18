@@ -4,15 +4,19 @@ import {UserService} from '../services/user.service';
 import {GLOBAL} from '../services/global';
 import {Artist} from '../models/artist';
 import {ArtistService} from '../services/artist-service';
+import {AlbumService} from '../services/album.service';
+import {Album} from '../models/album';
 
 @Component({
-    selector: 'artist-detail',
-    templateUrl: '../views/artist-detail.html',
-    providers: [UserService, ArtistService]
+    selector: 'artist-add',
+    templateUrl: '../views/album-add.html',
+    providers: [UserService, ArtistService, AlbumService]
 })
 
-export class ArtistDetailComponent implements OnInit{
+export class AlbumAddComponent implements OnInit{
+    public titulo: string;
     public artist: Artist;
+    public album: Album;
     public token;
     public identity;
     public url: string;
@@ -22,35 +26,35 @@ export class ArtistDetailComponent implements OnInit{
         private _route: ActivatedRoute,
         private _router: Router,
         private _userService: UserService,
+        private _albumService: AlbumService,
         private _artistService: ArtistService
     ){
+        this.titulo = 'Crear nuevo album';
         this.identity = this._userService.getIdentity();
         this.token = this._userService.getToken();
         this.url = GLOBAL.url;
+        this.album = new Album('', '', 2017, '', '', '');
     }
 
     ngOnInit(){
-        console.log('artist-edit.component.ts cargando');
-
-        //llamar al método del api para sacar un artista en base a su id
-        this.getArtist();
-
-        //comprobar que funciona el add artist
-        //this._artistService.addArtist();
+        console.log('album-add.component.ts cargado');
     }
 
-    getArtist(){
-        this._route.params.forEach((params: Params) =>{
-            let id = params['id'];
+    onSubmit(){
+        this._route.params.forEach((params:Params) =>{
+            let artist_id = params['artist'];
 
-            this._artistService.getArtist(this.token, id).subscribe(
+            this.album.artist = artist_id;
+            //console.log(this.album);
+
+            this._albumService.addAlbum(this.token, this.album).subscribe(
                 response =>{
-                    if(!response.artist){
-                        this._router.navigate(['/']);
+                    if(!response.album){
+                        this.alertMessage = 'Error en el servidor';
                     }else{
-                        this.artist = response.artist;
-
-                        //sacar los albums del artista
+                        this.alertMessage = 'El album se ha creado correctamente';
+                        this.album = response.album; 
+                        this._router.navigate(['/editar-album'], response.album.id);
                     }
                 },
                 error =>{
@@ -60,7 +64,7 @@ export class ArtistDetailComponent implements OnInit{
                         //convertimos en obj json
                         var body = JSON.parse(error._body);
             
-                        //this.alertMessage = body.message;
+                        this.alertMessage = body.message;
                         console.log(error);
                     }
                 }

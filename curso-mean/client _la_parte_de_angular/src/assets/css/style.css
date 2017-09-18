@@ -75,7 +75,20 @@ body {
     padding-bottom: 3px;
 }
 
-.artist_image_for_edit img {
+.central {
+    height: 100%;
+    overflow-y: scroll;
+}
+
+.seguro {
+    margin-top: -30px;
+    background: #000;
+    width: 100%;
+    position: absolute;
+}
+
+.artist_image_for_edit img,
+.album_image_for_edit img {
     width: 70px;
 }
 
@@ -115,4 +128,16 @@ body {
 
 .artist-item .artist-name a {
     color: white;
+}
+
+#artist-head-card .image {
+    width: 140px;
+    height: 140px;
+    overflow: hidden;
+    float: left;
+    margin-right: 30px;
+}
+
+#artist-head-card .image img {
+    height: 150px;
 }
