@@ -87,19 +87,26 @@ body {
     position: absolute;
 }
 
+.seguro-album {
+    margin-top: -40px;
+    margin-left: 10px;
+}
+
 .artist_image_for_edit img,
 .album_image_for_edit img {
     width: 70px;
 }
 
-.artist-list {
+.artist-list,
+.album-list {
     margin: 0px;
     padding: 0px;
     margin-top: 30px;
     list-style: none;
 }
 
-.artist-item {
+.artist-item,
+.album-item {
     width: 25px;
     margin: 0px;
     padding: 0px;
@@ -107,9 +114,11 @@ body {
     border: 2px solid #444;
     margin-left: 20px;
     margin-top: 20px;
+    height: 355px;
 }
 
-.artist-item .artist-image {
+.artist-item .artist-image,
+.album-item .album-image {
     height: 100%;
     width: 100%;
     overflow: hidden;
@@ -120,17 +129,24 @@ body {
     height: 100%;
 }
 
-.artist-item .artist-name {
+.album-item .album-image img {
+    width: 100%;
+}
+
+.artist-item .artist-name,
+.album-item .album-name {
     color: white;
     padding: 10px;
     background: #223;
 }
 
-.artist-item .artist-name a {
+.artist-item .artist-name a,
+.album-item .album-name a {
     color: white;
 }
 
-#artist-head-card .image {
+#artist-head-card .image,
+#album-head-card .image {
     width: 140px;
     height: 140px;
     overflow: hidden;
@@ -138,6 +154,7 @@ body {
     margin-right: 30px;
 }
 
-#artist-head-card .image img {
+#artist-head-card .image img,
+#album-head-card .image img {
     height: 150px;
 }

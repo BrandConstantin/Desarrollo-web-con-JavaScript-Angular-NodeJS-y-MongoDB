@@ -84,10 +84,11 @@ export class ArtistEditComponent implements OnInit{
                     }else{
                         this.alertMessage = 'El artista se ha actualizado correctamente';
                         //this.artist = response.artist; 
-                        this._router.navigate(['/editar-artista', response.artist.id]);
-                        
-                        //subir la imágen del artista
-                        this._uploadService.makeFileRequest(this.url + 'upload-image-artist/' + id, [], this.filesToUpload, this.token, 'image')
+                        if(!this.filesToUpload){
+                            this._router.navigate(['/artista', response.artist.id]);
+                        }else{                                                      
+                            //subir la imágen del artista
+                            this._uploadService.makeFileRequest(this.url + 'upload-image-artist/' + id, [], this.filesToUpload, this.token, 'image')
                                 .then(
                                     (result) =>{
                                         //para que nos lleve a la primera página de artistas
@@ -97,6 +98,7 @@ export class ArtistEditComponent implements OnInit{
                                         console.log(error);
                                     }
                                 );
+                        }
                     }
                 },
                 error =>{

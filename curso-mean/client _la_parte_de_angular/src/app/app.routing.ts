@@ -13,6 +13,7 @@ import {ArtistDetailComponent} from './components/artist-detail.component';
 //imort albums
 import {AlbumAddComponent} from './components/album-add.component';
 import {AlbumEditComponent} from './components/album-edit.component';
+import {AlbumDetailComponent} from './components/album-detail.component';
 
 //un array con todas las configuraciones
 const appRoutes: Routes =[
@@ -27,8 +28,9 @@ const appRoutes: Routes =[
     {path: 'crear-artistas', component: ArtistAddComponent},
     {path: 'editar-artistas', component: ArtistEditComponent},
     {path: 'artista/:id', component: ArtistDetailComponent},
-    {path: 'crear-album/:artist', component: ArtistAddComponent},
-    {path: 'editar-album/:id', component: ArtistEditComponent},
+    {path: 'crear-album/:artist', component: AlbumAddComponent},
+    {path: 'editar-album/:id', component: AlbumEditComponent},
+    {path: 'album/:id', component: AlbumDetailComponent},
     {path: 'mis-datos', component: UserEditComponent},
     //cuando no se introduce una ruta valida
     {path: '**', component: HomeComponent}

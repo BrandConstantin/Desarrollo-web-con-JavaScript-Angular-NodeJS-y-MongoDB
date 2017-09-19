@@ -2,30 +2,27 @@ import { Component, OnInit } from '@angular/core';
 import {Router, ActivatedRoute, Params} from '@angular/router';
 import {UserService} from '../services/user.service';
 import {GLOBAL} from '../services/global';
-import {Artist} from '../models/artist';
 import {ArtistService} from '../services/artist-service';
 import {AlbumService} from '../services/album.service';
 import {Album} from '../models/album';
 
 @Component({
-    selector: 'artist-detail',
-    templateUrl: '../views/artist-detail.html',
-    providers: [UserService, ArtistService, AlbumService]
+    selector: 'album-detail',
+    templateUrl: '../views/album-detail.html',
+    providers: [UserService, AlbumService]
 })
 
-export class ArtistDetailComponent implements OnInit{
-    public artist: Artist;
+export class AlbumDetailComponent implements OnInit{
+    public album: Album[];
     public token;
     public identity;
     public url: string;
     public alertMessage;
-    public albums: Album[];
 
     constructor(
         private _route: ActivatedRoute,
         private _router: Router,
         private _userService: UserService,
-        private _artistService: ArtistService,
         private _albumService: AlbumService
     ){
         this.identity = this._userService.getIdentity();
@@ -34,26 +31,26 @@ export class ArtistDetailComponent implements OnInit{
     }
 
     ngOnInit(){
-        console.log('artist-edit.component.ts cargando');
+        console.log('album-detail.component.ts cargando');
 
-        //llamar al método del api para sacar un artista en base a su id
-        this.getArtist();
+        //llamar al método del api para sacar un album en base a su id
+        this.getAlbum();
 
         //comprobar que funciona el add artist
         //this._artistService.addArtist();
     }
 
-    getArtist(){
+    getAlbum(){
         this._route.params.forEach((params: Params) =>{
             let id = params['id'];
 
-            this._artistService.getArtist(this.token, id).subscribe(
+            this._albumService.getAlbum(this.token, id).subscribe(
                 response =>{
-                    if(!response.artist){
+                    if(!response.album){
                         this._router.navigate(['/']);
                     }else{
-                        this.artist = response.artist;
-
+                        this.album = response.album;
+/*
                         //sacar los albums del artista
                         this._albumService.getAlbums(this.token, response.artist.id).subscribe(
                             response =>{
@@ -75,7 +72,7 @@ export class ArtistDetailComponent implements OnInit{
                                     console.log(error);
                                 }
                             }
-                        );
+                        );*/
                     }
                 },
                 error =>{
@@ -91,36 +88,5 @@ export class ArtistDetailComponent implements OnInit{
                 }
             );
         });
-    }
-
-    public confirmado;
-    onDeleteConfirm(id){
-        this.confirmado = id;
-    }
-
-    onCancelAlbum(){
-        this.confirmado = null;
-    }
-
-    onDeleteAlbum(id){
-        this._albumService.deleteAlbum(this.token, id).subscribe(
-            response =>{
-                if(!response.album){
-                    this.alertMessage = 'Error en el servidor';
-                }else{
-                    this.getArtist();
-                }
-            },error =>{
-                var errorMessage = <any>error;
-                
-                if(errorMessage != null){
-                    //convertimos en obj json
-                    var body = JSON.parse(error._body);
-        
-                    //this.alertMessage = body.message;
-                    console.log(error);
-                }
-            }
-        );
     }
 }
