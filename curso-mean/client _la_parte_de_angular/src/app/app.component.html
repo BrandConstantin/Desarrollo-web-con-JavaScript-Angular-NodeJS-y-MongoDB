@@ -33,6 +33,11 @@
 <div [class.hidden]="!identity" class="central col-lg-11">
     <!--<p>Estas logueado a la app</p>-->
     <router-outlet></router-outlet>
+
+    <div class="clearfix"></div>
+
+    <!-- el player -->
+    <player class="player" *ngIf="identity"></player>
 </div>
 
 <div class="col-lg-11" *ngIf="!identity">
